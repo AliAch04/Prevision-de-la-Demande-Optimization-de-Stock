@@ -24,6 +24,8 @@ python /home/runner/work/Prevision-de-la-Demande-Optimization-de-Stock/Prevision
   --horizon 7
 ```
 
+Le pipeline accepte aussi les données transactionnelles Marjane (`ticket,date,magasin,sku,produit,categorie,quantite,prix`) et applique automatiquement le nettoyage (doublons, dates invalides, valeurs négatives/nulles, imputation des quantités manquantes, suppression des aberrants), puis l’agrégation journalière par magasin/SKU.
+
 ## Lancer le dashboard
 
 ```bash

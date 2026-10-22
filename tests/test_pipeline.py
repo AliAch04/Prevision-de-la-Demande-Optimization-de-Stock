@@ -7,7 +7,7 @@ SRC = os.path.join(ROOT, "src")
 if SRC not in sys.path:
     sys.path.insert(0, SRC)
 
-from data_pipeline import clean_sales_data
+from data_pipeline import clean_sales_data, load_sales_csv
 from inventory import recommend_order_quantity
 from pipeline import run_pipeline
 
@@ -31,6 +31,15 @@ class PipelineTests(unittest.TestCase):
         self.assertGreaterEqual(result["n_clean_rows"], 1)
         self.assertGreaterEqual(len(result["evaluations"]), 1)
         self.assertGreaterEqual(len(result["recommendations"]), 1)
+
+    def test_load_sales_csv_supports_marjane_schema(self):
+        marjane_path = os.path.join(ROOT, "data", "ventes_brut_marjane.csv")
+        rows = load_sales_csv(marjane_path)
+        self.assertGreaterEqual(len(rows), 1)
+        self.assertIn("store_id", rows[0])
+        self.assertIn("product_id", rows[0])
+        self.assertIn("sales", rows[0])
+        self.assertIn("price", rows[0])
 
 
 if __name__ == "__main__":
